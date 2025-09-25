@@ -15,9 +15,9 @@
 
         <Grid Grid.Column="0" Background="#2e2f37"              >
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.05*" />
+                <RowDefinition Height="0.05*" MinHeight="30"/>
                 <RowDefinition Height="0.90*" />
-                <RowDefinition Height="0.05*" />
+                <RowDefinition Height="0.05*" MinHeight="30"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
@@ -25,11 +25,16 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" Name="SearchTextBox"/>
+                <TextBox Grid.Column="0" 
+                         Name="SearchTextBox"
+                         VerticalContentAlignment="Center"
+                         HorizontalContentAlignment="Left"
+                         FontSize="15"
+                         KeyDown="SearchTextBox_KeyDown"/>
                 <Button Grid.Column="1" 
                         Name="SearchButton" 
                         Content="Search"
-                        Click="Search"/>
+                        Click="SearchButton_Click"/>
             </Grid>
             <ScrollViewer Grid.Row="1"
                           VerticalScrollBarVisibility="Visible"
@@ -50,18 +55,37 @@
 
         <Grid Grid.Column="2" Background="#2e2f37">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.05*" />
+                <RowDefinition Height="0.1*" MinHeight="60"/>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="0.05*" />                
+                <RowDefinition Height="0.05*" MinHeight="30"/>                
             </Grid.RowDefinitions>
 
-            <TextBox Grid.Row="0" Name = "TaskTitlen" FontSize="15"/>
-            <TextBox Grid.Row="1" Name = "TaskDescription" 
+            <TextBox Grid.Row="0" 
+                     Name = "TaskTitlen" 
+                     FontSize="30"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Left"
+                     KeyDown="TaskTextBox_KeyDown"/>
+            <TextBox Grid.Row="1" 
+                     Name = "TaskDescription"
+                     FontSize="20"
                      AcceptsReturn="True" 
-                     TextWrapping="Wrap"
-                     Height="Auto"
-                     VerticalScrollBarVisibility="Auto"/>
-            <Button Grid.Row="2" Name="Save" Click="OnSaveTask" Content="Save"/>
+                     TextWrapping="Wrap"                     
+                     VerticalScrollBarVisibility="Auto"
+                     KeyDown="TaskTextBox_KeyDown"/>
+            <DockPanel Grid.Row="2"
+                       LastChildFill="False">
+                <Button DockPanel.Dock="Left" 
+                        Name="SaveButton" 
+                        Click="SaveButton_Click" 
+                        Content="Save"
+                        Width="100"/>
+                <Button DockPanel.Dock="Left" 
+                        Name="DeleteButton"
+                        Click="OnDeleteTask"
+                        Content="Delete"
+                        Width="100"/>
+            </DockPanel>
         </Grid>
         
        

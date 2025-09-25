@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Xml;
 using ToDoList.Data;
 using ToDoList.DataProvider;
-using System.Linq;
 
 namespace ToDoList
 {
@@ -34,12 +35,30 @@ namespace ToDoList
             TaskTitlen.Text = _activeTask.Title;
             TaskDescription.Text = _activeTask.Description;
         }
-        private void OnSaveTask(object task, RoutedEventArgs e)
+
+        private void TaskTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)            
+                Save();
+        }
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
+        }
+        private void Save()
         {
             if (_activeTask is null) return;
 
             _activeTask.Title = TaskTitlen.Text;
             _activeTask.Description = TaskDescription.Text;
+        }
+
+        private void OnDeleteTask(object sender, RoutedEventArgs e)
+        {
+            if (_activeTask is null) return;
+
+            _tasksInfo.Remove(_activeTask.TaskInfo);
+            TaskList.Children.Remove(_activeTask);
         }
 
         private void AddNewTask(object sender, RoutedEventArgs e)
@@ -49,10 +68,18 @@ namespace ToDoList
 
             AddNewTaskToTaskList(taskInfo);
         }
-        private void Search(object sender, RoutedEventArgs e)
+        
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {           
+            Search(SearchTextBox.Text.ToLower());            
+        }
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            string request = SearchTextBox.Text.ToLower();
-
+            if(e.Key == Key.Enter)            
+                Search(SearchTextBox.Text.ToLower());           
+        }
+        private void Search(string request)
+        {
             TaskList.Children.Clear();
 
             if (string.IsNullOrEmpty(request))

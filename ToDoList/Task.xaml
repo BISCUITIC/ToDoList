@@ -7,22 +7,32 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="500">
 
-    <Grid Background="AliceBlue" MouseDown="OnEditTask">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+    <Border Background="GhostWhite" 
+            BorderBrush="Silver" 
+            BorderThickness="1" 
+            CornerRadius="8,8,8,8"
+            Margin="2,2,2,2"
+            Padding="2,2,2,2">
+        <Grid Name="Layout" Background="AliceBlue"              
+              MouseDown="OnEditTask">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        <CheckBox Grid.Column ="0"
-                  HorizontalAlignment="Center" 
-                  VerticalAlignment="Center"                 />
-        <TextBlock Grid.Column="1" 
-                   FontSize="18"                   
-                   TextWrapping="NoWrap"                   
-                   LineHeight="30"     
-                   MaxHeight="30"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
-                   Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-    </Grid>
+            <CheckBox Grid.Column ="0"
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center"
+                      BorderBrush="Black"
+                      IsChecked="{Binding IsChecked}"/>
+            <TextBlock Grid.Column="1" 
+                       FontSize="18"                   
+                       TextWrapping="NoWrap"                   
+                       LineHeight="30"     
+                       MaxHeight="30"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+    </Border>
 </UserControl>
