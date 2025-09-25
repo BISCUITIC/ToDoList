@@ -42,12 +42,6 @@ namespace ToDoList
                 }
             }
                 
-            public Task()
-            {
-                InitializeComponent();
-                _taskInfo = new TaskInfo();
-                this.DataContext = this;            
-            }
             public Task(TaskInfo taskInfo)
             {
                 InitializeComponent();

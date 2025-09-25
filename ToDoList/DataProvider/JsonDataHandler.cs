@@ -32,8 +32,8 @@ public class JsonDataHandler : IDataProvider
 
     public void SaveAllData(IEnumerable<TaskInfo> tasks)
     {
-        using (FileStream fileStream = new FileStream(_pathToFile, FileMode.OpenOrCreate))
-        {
+        using (FileStream fileStream = new FileStream(_pathToFile, FileMode.Create))
+        {            
             JsonSerializer.Serialize<IEnumerable<TaskInfo>>(fileStream, tasks);
             MessageBox.Show("Данные сохранены");
         }

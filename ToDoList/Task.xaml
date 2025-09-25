@@ -8,13 +8,21 @@
              d:DesignHeight="30" d:DesignWidth="500">
 
     <Grid Background="AliceBlue" MouseDown="OnEditTask">
-        <TextBlock Grid.Row="0" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <CheckBox Grid.Column ="0"
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center"                 />
+        <TextBlock Grid.Column="1" 
                    FontSize="18"                   
                    TextWrapping="NoWrap"                   
                    LineHeight="30"     
                    MaxHeight="30"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
+                   HorizontalAlignment="Left"
                    Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
     </Grid>
 </UserControl>

@@ -8,26 +8,38 @@
         Title="MainWindow" Height="600" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.45*" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="0.65*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="0.45*" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" Background="#2e2f37"              >
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.95*" />
+                <RowDefinition Height="0.05*" />
+                <RowDefinition Height="0.90*" />
                 <RowDefinition Height="0.05*" />
             </Grid.RowDefinitions>
-            
-            <ScrollViewer VerticalScrollBarVisibility="Visible"
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Name="SearchTextBox"/>
+                <Button Grid.Column="1" 
+                        Name="SearchButton" 
+                        Content="Search"
+                        Click="Search"/>
+            </Grid>
+            <ScrollViewer Grid.Row="1"
+                          VerticalScrollBarVisibility="Visible"
                           HorizontalScrollBarVisibility="Disabled"                       >
-                <StackPanel Grid.Row="0" 
-                            Name="TaskList"
+                <StackPanel Name="TaskList"
                             Margin="10,5,10,5"
                             CanVerticallyScroll="True"/>
             </ScrollViewer>
 
-            <Button Grid.Row="1" Name="AddButton" Click="AddNewTask" Content="Add"/>
+            <Button Grid.Row="2" Name="AddButton" Click="AddNewTask" Content="Add"/>
             
         </Grid>
 
