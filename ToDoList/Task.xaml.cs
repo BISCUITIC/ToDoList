@@ -13,6 +13,7 @@ namespace ToDoList;
 public partial class Task : UserControl, INotifyPropertyChanged
 {
     public event RoutedEventHandler? Edit;
+    public event RoutedEventHandler? Delete;
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private readonly TaskInfo _taskInfo;
@@ -52,14 +53,7 @@ public partial class Task : UserControl, INotifyPropertyChanged
                 _taskInfo.IsCheckd = value;
                 OnPropertyChanged("IsCheckd");
             }
-            if (_taskInfo.IsCheckd == true)
-            {
-                Layout.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(200, 200, 200));
-            }
-            else
-            {
-                Layout.Background = new SolidColorBrush(Colors.GhostWhite);
-            }
+            ChangeTaskColor();
         }
     }
 
@@ -68,14 +62,24 @@ public partial class Task : UserControl, INotifyPropertyChanged
         InitializeComponent();
         _taskInfo = taskInfo;
         this.DataContext = this;
+        ChangeTaskColor();
+    }
+
+    private void ChangeTaskColor()
+    {
         if (_taskInfo.IsCheckd == true)
         {
-            Layout.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(200, 200, 200));
+            Layout.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(50, 50, 50));
         }
         else
         {
-            Layout.Background = new SolidColorBrush(Colors.GhostWhite);
+            Layout.Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(61, 61, 61));
         }
+    }
+
+    private void OnDeleteTask(object sender, RoutedEventArgs e)
+    {
+        Delete?.Invoke(this, e);
     }
 
     private void OnEditTask(object sender, RoutedEventArgs e)
@@ -86,6 +90,20 @@ public partial class Task : UserControl, INotifyPropertyChanged
     private void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    private void IsTaskGotFocus(object sender, RoutedEventArgs e)
+    {        
+        DeleteButton.Visibility = Visibility.Visible;
+    }
+    private void IsTaskLostFocus(object sender, RoutedEventArgs e)
+    {        
+        DeleteButton.Visibility = Visibility.Hidden;
+    }
+
+    private void Layout_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+    {
+
     }
 }
 

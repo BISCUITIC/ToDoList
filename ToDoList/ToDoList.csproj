@@ -8,16 +8,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Resources\SearchIcon.png" />
-    <None Remove="SearchIcon.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\SearchIcon.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="SearchIcon.png" />
-  </ItemGroup>
-
 </Project>

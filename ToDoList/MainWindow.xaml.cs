@@ -35,6 +35,14 @@ namespace ToDoList
             TaskTitlen.Text = _activeTask.Title;
             TaskDescription.Text = _activeTask.Description;
         }
+        private void OnDeleteTask(object task, RoutedEventArgs e)
+        {
+            if (task is Task t)
+            {
+                _tasksInfo.Remove(t.TaskInfo);
+                TaskList.Children.Remove(t);
+            }
+        }
 
         private void TaskTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -53,13 +61,6 @@ namespace ToDoList
             _activeTask.Description = TaskDescription.Text;
         }
 
-        private void OnDeleteTask(object sender, RoutedEventArgs e)
-        {
-            if (_activeTask is null) return;
-
-            _tasksInfo.Remove(_activeTask.TaskInfo);
-            TaskList.Children.Remove(_activeTask);
-        }
 
         private void AddNewTask(object sender, RoutedEventArgs e)
         {
@@ -99,9 +100,11 @@ namespace ToDoList
         {
             Task newTask = new Task(taskInfo);
             newTask.Edit += OnEditTask;
+            newTask.Delete += OnDeleteTask;
 
             TaskList.Children.Add(newTask);
         }
+
         private void CreateDefualtTaskList()
         {
             foreach (var taskInfo in _tasksInfo)
@@ -117,9 +120,7 @@ namespace ToDoList
             MessageBox.Show(_tasksInfo.Count.ToString());
             foreach (TaskInfo taskInfo in _tasksInfo)
             {
-                Task newTask = new Task(taskInfo);
-                newTask.Edit += OnEditTask;
-                TaskList.Children.Add(newTask);
+                AddNewTaskToTaskList(taskInfo);
             }
         }
         
@@ -127,5 +128,6 @@ namespace ToDoList
         {
             _dataProvider.SaveAllData(_tasksInfo);
         }
+
     }
 }

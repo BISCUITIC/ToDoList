@@ -7,17 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="500">
 
-    <Border Background="GhostWhite" 
-            BorderBrush="Silver" 
-            BorderThickness="1" 
-            CornerRadius="8,8,8,8"
-            Margin="2,2,2,2"
-            Padding="2,2,2,2">
-        <Grid Name="Layout" Background="AliceBlue"              
-              MouseDown="OnEditTask">
+    <Border Background="#3d3d3d" 
+            BorderBrush="#3d3d3d" 
+            BorderThickness="0" 
+            CornerRadius="8"
+            Margin="2"
+            Padding="2">
+        <Grid Name="Layout" 
+              Background="#3d3d3d"              
+              MouseDown="OnEditTask"
+              MouseEnter="IsTaskGotFocus"
+              MouseLeave="IsTaskLostFocus">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="60" />
             </Grid.ColumnDefinitions>
 
             <CheckBox Grid.Column ="0"
@@ -31,8 +35,29 @@
                        LineHeight="30"     
                        MaxHeight="30"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
+                       HorizontalAlignment="Left" 
+                       Background="{Binding Laoyout.BackGround}"
+                       Foreground="White"              
                        Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Border Grid.Column="2"
+                Background="#e04f4b" 
+                BorderBrush="#e04f4b" 
+                BorderThickness="0" 
+                CornerRadius="5"
+                Margin="0"
+                Padding="2"
+                Name="DeleteButton"
+                Visibility="Hidden">
+                <Button                     
+                    BorderThickness="0"
+                    Background="#e04f4b"
+                    Content="Delete"
+                    Foreground="White"
+                    FontSize="12"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="OnDeleteTask"/>
+            </Border>
         </Grid>
     </Border>
 </UserControl>

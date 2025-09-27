@@ -4,52 +4,100 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoList"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
-    <Grid>
+        Title="MainWindow" Height="600" Width="400">
+    <Grid Background="#2e2e2e">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.65*" />
+            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="0.45*" />
+            <ColumnDefinition Width="0*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Background="#2e2f37"              >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.05*" MinHeight="30"/>
-                <RowDefinition Height="0.90*" />
-                <RowDefinition Height="0.05*" MinHeight="30"/>
-            </Grid.RowDefinitions>
+        <Border Background="#FF1E1E1E" 
+                BorderBrush="#FF1E1E1E" 
+                BorderThickness="0"                 
+                CornerRadius="10,10,10,10"
+                Margin="8,8,8,8"
+                Padding="5,5,5,5">
+            <Grid Grid.Column="0" 
+                  Background="#FF1E1E1E">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.05*" MinHeight="30"/>
+                    <RowDefinition Height="0.90*" />
+                    <RowDefinition Height="0.05*" MinHeight="30"/>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" 
-                         Name="SearchTextBox"
-                         VerticalContentAlignment="Center"
-                         HorizontalContentAlignment="Left"
-                         FontSize="15"
-                         KeyDown="SearchTextBox_KeyDown"/>
-                <Button Grid.Column="1" 
-                        Name="SearchButton" 
-                        Content="Search"
-                        Click="SearchButton_Click"/>
+                
+                    <Grid Grid.Row="0"
+                          Background="#FF1E1E1E">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0"
+                        Background="#FF2E2E2E" 
+                        BorderBrush="#FF2E2E2E" 
+                        BorderThickness="1" 
+                        CornerRadius="7,0,0,7"                    
+                        Padding="2,2,2,2">  
+                        <TextBox 
+                                 Background="#FF2E2E2E"
+                                 Foreground="White"
+                                 Name="SearchTextBox"
+                                 VerticalContentAlignment="Center"
+                                 HorizontalContentAlignment="Left"
+                                 FontSize="17"
+                                 KeyDown="SearchTextBox_KeyDown"
+                                 BorderThickness="0"/>
+                    </Border>
+                    <Border Grid.Column="1"
+                        Background="#3d3d3d" 
+                        BorderBrush="#3d3d3d" 
+                        BorderThickness="0" 
+                        CornerRadius="0,7,7,0"                    
+                        Padding="2">
+                        <Button  
+                            Name="SearchButton" 
+                            Content="Search"
+                            Click="SearchButton_Click"
+                            BorderThickness="0"
+                            Background="#3d3d3d"
+                            Foreground="White"/>
+                    </Border>
+                    </Grid>
+
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Visible"
+                              HorizontalScrollBarVisibility="Disabled"
+                              Margin="5">
+                    <ScrollViewer.Resources>
+                        <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">10</sys:Double>
+                    </ScrollViewer.Resources>
+                    <StackPanel Name="TaskList"
+                                Margin="10,5,10,5"
+                                CanVerticallyScroll="True"/>
+                </ScrollViewer>
+
+                <Border Grid.Row="2"
+                    Background="#3d3d3d" 
+                    BorderBrush="#3d3d3d" 
+                    BorderThickness="1"                 
+                    CornerRadius="7"
+                    Margin="2"
+                    Padding="2">
+                    <Button Name="AddButton" 
+                            BorderThickness="0"
+                            Click="AddNewTask" 
+                            Content="Add"
+                            Background="#3d3d3d"
+                            Foreground="White"/>
+                </Border>
             </Grid>
-            <ScrollViewer Grid.Row="1"
-                          VerticalScrollBarVisibility="Visible"
-                          HorizontalScrollBarVisibility="Disabled"                       >
-                <StackPanel Name="TaskList"
-                            Margin="10,5,10,5"
-                            CanVerticallyScroll="True"/>
-            </ScrollViewer>
-
-            <Button Grid.Row="2" Name="AddButton" Click="AddNewTask" Content="Add"/>
-            
-        </Grid>
+        </Border>
 
         <GridSplitter Grid.Column="1" 
-               ShowsPreview="False" Width="3"
+               ShowsPreview="False" Width="5"
                HorizontalAlignment="Center" 
                VerticalAlignment="Stretch" />
 
@@ -73,19 +121,20 @@
                      TextWrapping="Wrap"                     
                      VerticalScrollBarVisibility="Auto"
                      KeyDown="TaskTextBox_KeyDown"/>
-            <DockPanel Grid.Row="2"
-                       LastChildFill="False">
-                <Button DockPanel.Dock="Left" 
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" 
                         Name="SaveButton" 
                         Click="SaveButton_Click" 
-                        Content="Save"
-                        Width="100"/>
-                <Button DockPanel.Dock="Left" 
+                        Content="Save"                       />
+                <Button Grid.Column="1" 
                         Name="DeleteButton"
                         Click="OnDeleteTask"
-                        Content="Delete"
-                        Width="100"/>
-            </DockPanel>
+                        Content="Delete"/>
+            </Grid>
         </Grid>
         
        
