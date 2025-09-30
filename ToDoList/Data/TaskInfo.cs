@@ -2,12 +2,12 @@
 
 public class TaskInfo
 {
-    private readonly Guid _id;
     private readonly DateTime _time;
+    private Guid _id;
     private string _title;
     private string _description;
     private bool _isChecked;
-    public Guid Id { get => _id; }
+    public Guid Id { get => _id; set => _id = value; }
     public DateTime Time { get => _time; }
     public string Title { get => _title; set => _title = value; }
     public string Desciption { get => _description; set => _description = value; }

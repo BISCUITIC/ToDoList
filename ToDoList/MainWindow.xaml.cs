@@ -21,8 +21,16 @@ namespace ToDoList
         public MainWindow()
         {
             InitializeComponent();
-            _dataProvider = new JsonDataHandler();
+            
+            try
+            {
+                _dataProvider = new DbDataHandler();
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             this.Loaded += MainWindow_Loaded;                        
         }
 
