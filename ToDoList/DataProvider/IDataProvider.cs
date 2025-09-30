@@ -3,8 +3,10 @@
 namespace ToDoList.DataProvider;
 
 public interface IDataProvider
-{
-    void SaveAllData(IEnumerable<TaskInfo> tasks);
+{    
+    //void SaveAllData(IEnumerable<TaskInfo> tasks);
     IEnumerable<TaskInfo> GetAllData();
-    void ChangeData(TaskInfo task);
+    void Edit(TaskInfo task);
+    void Add(TaskInfo task);
+    void Delete(TaskInfo task);
 }

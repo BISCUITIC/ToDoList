@@ -13,6 +13,7 @@ namespace ToDoList;
 public partial class Task : UserControl, INotifyPropertyChanged
 {
     public event RoutedEventHandler? Edit;
+    public event RoutedEventHandler? Change;
     public event RoutedEventHandler? Delete;
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -86,6 +87,10 @@ public partial class Task : UserControl, INotifyPropertyChanged
     {
         Edit?.Invoke(this, e);
     }
+    private void OnChaneTask(object sender, RoutedEventArgs e)
+    {
+        Change?.Invoke(this, e);
+    }
 
     private void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
@@ -99,11 +104,6 @@ public partial class Task : UserControl, INotifyPropertyChanged
     private void IsTaskLostFocus(object sender, RoutedEventArgs e)
     {        
         DeleteButton.Visibility = Visibility.Hidden;
-    }
-
-    private void Layout_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
-    {
-
     }
 }
 

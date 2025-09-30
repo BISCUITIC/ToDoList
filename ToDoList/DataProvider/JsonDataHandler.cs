@@ -8,34 +8,56 @@ namespace ToDoList.DataProvider;
 public class JsonDataHandler : IDataProvider
 {
     private static string _pathToFile = "data.json";
+    private List<TaskInfo> _tasksData;
 
-    public void ChangeData(TaskInfo task)
+    public JsonDataHandler() 
     {
-        throw new NotImplementedException();
+        GetAllDataFromJson();
     }
 
-    public IEnumerable<TaskInfo> GetAllData()
+    private void GetAllDataFromJson()
     {
         using (FileStream fileStream = new FileStream(_pathToFile, FileMode.OpenOrCreate))
         {
             try
             {
-                IEnumerable<TaskInfo> list = JsonSerializer.Deserialize<IEnumerable<TaskInfo>>(fileStream) ?? [];
-                return list;
+                _tasksData = JsonSerializer.Deserialize<List<TaskInfo>>(fileStream) ?? [];                  
             }
             catch
             {
-                return [];
+                _tasksData = [];
             }
         }
     }
-
-    public void SaveAllData(IEnumerable<TaskInfo> tasks)
+    public void SaveAllDataToJson()
     {
         using (FileStream fileStream = new FileStream(_pathToFile, FileMode.Create))
         {            
-            JsonSerializer.Serialize<IEnumerable<TaskInfo>>(fileStream, tasks);
+            JsonSerializer.Serialize<IEnumerable<TaskInfo>>(fileStream, _tasksData);
             MessageBox.Show("Данные сохранены");
         }
+    }
+
+    public IEnumerable<TaskInfo> GetAllData()
+    {
+        return _tasksData;
+    }
+    public void Edit(TaskInfo task)
+    {
+        int index = _tasksData.FindIndex((t) => t.Id == task.Id);
+        _tasksData[index] = task;
+        SaveAllDataToJson();
+    }
+
+    public void Add(TaskInfo task)
+    {
+        _tasksData.Add(task);
+        SaveAllDataToJson();
+    }
+
+    public void Delete(TaskInfo task)
+    {
+        _tasksData.Remove(task);
+        SaveAllDataToJson();
     }
 }

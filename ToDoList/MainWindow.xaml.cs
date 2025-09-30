@@ -23,12 +23,11 @@ namespace ToDoList
             InitializeComponent();
             _dataProvider = new JsonDataHandler();
 
-            this.Loaded += MainWindow_Loaded;            
-            this.Closing += MainWindow_Closing;
+            this.Loaded += MainWindow_Loaded;                        
         }
 
         private void OnEditTask(object task, RoutedEventArgs e)
-        {
+        {           
             _activeTask = task as Task;
             if (_activeTask is null) throw new NullReferenceException("Не удалось преобразовать к Task");
 
@@ -40,10 +39,14 @@ namespace ToDoList
             if (task is Task t)
             {
                 _tasksInfo.Remove(t.TaskInfo);
+                _dataProvider.Delete(t.TaskInfo);
                 TaskList.Children.Remove(t);
             }
         }
-
+        private void OnChangeTask(object task, RoutedEventArgs e)
+        {
+            _dataProvider.Edit((task as Task).TaskInfo);
+        }
         private void TaskTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)            
@@ -59,6 +62,8 @@ namespace ToDoList
 
             _activeTask.Title = TaskTitlen.Text;
             _activeTask.Description = TaskDescription.Text;
+
+            _dataProvider.Edit(_activeTask.TaskInfo);
         }
 
 
@@ -66,6 +71,7 @@ namespace ToDoList
         {
             TaskInfo taskInfo = new TaskInfo();
             _tasksInfo.Add(taskInfo);
+            _dataProvider.Add(taskInfo);
 
             AddNewTaskToTaskList(taskInfo);
         }
@@ -101,7 +107,8 @@ namespace ToDoList
             Task newTask = new Task(taskInfo);
             newTask.Edit += OnEditTask;
             newTask.Delete += OnDeleteTask;
-
+            newTask.Change += OnChangeTask;
+           
             TaskList.Children.Add(newTask);
         }
 
@@ -117,17 +124,10 @@ namespace ToDoList
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             _tasksInfo = _dataProvider.GetAllData().ToList<TaskInfo>();
-            MessageBox.Show(_tasksInfo.Count.ToString());
             foreach (TaskInfo taskInfo in _tasksInfo)
             {
                 AddNewTaskToTaskList(taskInfo);
             }
-        }
-        
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            _dataProvider.SaveAllData(_tasksInfo);
-        }
-
+        }       
     }
 }
